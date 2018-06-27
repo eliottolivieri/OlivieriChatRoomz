@@ -15,11 +15,17 @@
 <body>
 
   <!-- -->
-  <h1>Ouch! You've clicked me
-    <span id="click-value"></span> times!</h1>
-
+  <h1>WOW! 
+    <span id="click-value"></span> messages have been sent in this convo </h1>
   <!-- -->
-  <button id="click-button">Click Me!!!!</button>
+
+<div id="myBox"></div>
+
+  <button id="send-message">Send</button>
+
+  <button id="clear-message">Clear</button>
+  <input type="text" id="myMessagez"> 
+
 
   <!-- -->
 
@@ -47,13 +53,26 @@
     // FUNCTIONS + EVENTS
     // --------------------------------------------------------------------------------
 
-    $("#click-button").on("click", function() {
+    $("#send-message").on("click", function() {
       clickCounter++;
+      var myMessage = $("input:text").val();
+      $( "#myBox" ).append( "<p>" + clickCounter + myMessage +"</p>" );
+   //   var myString = "msgBOX" + clickCounter;
+      database.ref().set({
+        clickCount: clickCounter,
+        msgBOX: myMessage
+      });
+    
+        
+      
+    });
+
+    $("#clear-message").on("click", function() {
+      clickCounter = 0;
       database.ref().set({
         clickCount: clickCounter
       });
     });
-
     // MAIN PROCESS + INITIAL CODE
     // --------------------------------------------------------------------------------
 
